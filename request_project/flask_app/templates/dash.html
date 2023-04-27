@@ -16,14 +16,14 @@
     </h1>
     <a href="/logout" class="text-center bg-info text-dark border border-dark border-solid border-3 m-5">Gotta Get Me
         Outta This Place!</a>
-    <a href="requests/new">New requests 👣!!!</a>
+    <a href="bands/new">New bands 👣!!!</a>
     <div class="p-5">
 
-        {% for one_request in all_requests %}
+        {% for one_band in all_bands %}
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">request Name</th>
+                    <th scope="col">Band Name</th>
                     <th scope="col">Founding Member</th>
                     <th scope="col">Genre</th>
                     <th scope="col">Actions</th>
@@ -31,14 +31,14 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>{{one_request.request_name}}</td>
-                    <td>{{one_request.users.first_name}} {{one_request.users.last_name}}</td>
-                    <td>{{one_request.genre}}</td>
+                    <td>{{one_band.band_name}}</td>
+                    <td>{{one_band.users.first_name}} {{one_band.users.last_name}}</td>
+                    <td>{{one_band.genre}}</td>
                     <td>
-                        <a href="/requests/{{one_request.request_id}}">View</a>
-                        {% if session['user_id'] == one_request.users.id %}
-                        <a href="update/{{one_request.request_id}}">Edit</a>
-                        <form action="/requests/delete/{{one_request.request_id}}" method="post">
+                        <a href="/bands/{{one_band.band_id}}">View</a>
+                        {% if session['user_id'] == one_band.users.id %}
+                        <a href="update/{{one_band.band_id}}">Edit</a>
+                        <form action="/bands/delete/{{one_band.band_id}}" method="post">
                             <button type="submit">Delete</button>
                         </form>
                         {% endif %}

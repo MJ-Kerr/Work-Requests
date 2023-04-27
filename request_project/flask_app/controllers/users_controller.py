@@ -1,7 +1,7 @@
 from flask_app import app
 from flask import render_template, request, redirect, session, flash
 from flask_app.models.users_models import User
-from flask_app.models import requests_models
+from flask_app.models import works_models
 from flask_bcrypt import Bcrypt
 bcrypt = Bcrypt(app)
 
@@ -37,16 +37,16 @@ def dash():
 
 
 #  =========================return all the sightings====================
-    all_requests = requests_models.request.get_all()
-    return render_template("dash.html", logged_in_user=logged_in_user, all_requests=all_requests)
+    all_works = works_models.Work.get_all()
+    return render_template("dash.html", logged_in_user=logged_in_user, all_works=all_works)
 
 
 # ============LOGIN USER=================
 @app.route("/user/login", methods=["POST"])
 def login():
-    user_db = User.get_user_by_username(request.form["username"])
+    user_db = User.get_user_by_email(request.form["email"])
     if not user_db:
-        flash("Invalid Username", "log")
+        flash("Invalid Email", "log")
         return redirect("/")
     if not bcrypt.check_password_hash(user_db.password, request.form["password"]):
         flash("Invalid Password", "log")
