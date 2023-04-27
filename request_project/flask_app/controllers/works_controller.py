@@ -38,7 +38,7 @@ def update_work(id):
 # ============= Update work =============
 @app.route("/works/update", methods=["POST"])
 def update_works():
-    if not work.validate(request.form):
+    if not Work.validate(request.form):
         return redirect(f"/update/{request.form['id']}")
     Work.update(request.form)
     return redirect("/dash")

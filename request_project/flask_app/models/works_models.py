@@ -7,9 +7,9 @@ from flask import flash
 class Work:
     def __init__(self, data):
         self.work_id = data['work_id']
-        self.work_name = data['work_name']
-        self.home_city = data['home_city']
-        self.genre = data['genre']
+        self.type = data['type']
+        self.description = data['description']
+        self.language = data['language']
         self.users_id = data['users_id']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
@@ -17,9 +17,9 @@ class Work:
 
     def print(self):
         print(self.work_id)
-        print(self.work_name)
-        print(self.home_city)
-        print(self.genre)
+        print(self.type)
+        print(self.description)
+        print(self.language)
         print(self.users_id)
         print(self.created_at)
         print(self.updated_at)
@@ -32,14 +32,14 @@ class Work:
     def create_work(cls, data):
         query = """
         INSERT INTO works
-            (home_city,
-            genre,
-            work_name,
+            (description,
+            language,
+            type,
             users_id)
         VALUES 
-            (%(home_city)s, 
-            %(genre)s,
-            %(work_name)s,
+            (%(description)s, 
+            %(language)s,
+            %(type)s,
             %(users_id)s);
         """
         return connectToMySQL(DATABASE).query_db(query, data)
@@ -107,9 +107,9 @@ class Work:
         query = """
         UPDATE works
         SET
-            work_name = %(work_name)s,
-            home_city = %(home_city)s, 
-            genre = %(genre)s,
+            type = %(type)s,
+            description = %(description)s, 
+            language = %(language)s,
         WHERE work_id = %(work_id)s;
         """
         return connectToMySQL(DATABASE).query_db(query, data)
@@ -130,16 +130,16 @@ class Work:
     def validate(data):
         is_valid =True
 
-        if len(data['work_name']) == 0:
+        if len(data['type']) == 0:
             is_valid = False
             flash('Name is required')
 
-        if len(data['home_city    ']) == 0:
+        if len(data['description']) == 0:
             is_valid = False
             flash('Location is required')
 
-        if len(data['genre']) ==0 :
+        if len(data['language']) ==0 :
             is_valid = False
-            flash('Genre is required')
+            flash('Language is required')
 
         return is_valid

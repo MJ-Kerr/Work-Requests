@@ -12,33 +12,33 @@
 </head>
 
 <body>
-    <h1 class="text-center bg-dark text-info p-2 m-1">Rock on {{logged_in_user.first_name}}!
+    <h1 class="text-center bg-dark text-info p-2 m-1">Rock on {{logged_in_user.name}}!
     </h1>
     <a href="/logout" class="text-center bg-info text-dark border border-dark border-solid border-3 m-5">Gotta Get Me
         Outta This Place!</a>
-    <a href="bands/new">New bands 👣!!!</a>
+    <a href="works/new">New works 👣!!!</a>
     <div class="p-5">
 
-        {% for one_band in all_bands %}
+        {% for one_work in all_works %}
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Band Name</th>
+                    <th scope="col">Work Name</th>
                     <th scope="col">Founding Member</th>
-                    <th scope="col">Genre</th>
+                    <th scope="col">Language</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>{{one_band.band_name}}</td>
-                    <td>{{one_band.users.first_name}} {{one_band.users.last_name}}</td>
-                    <td>{{one_band.genre}}</td>
+                    <td>{{one_work.type}}</td>
+                    <td>{{one_work.users.name}} {{one_work.users.username}}</td>
+                    <td>{{one_work.language}}</td>
                     <td>
-                        <a href="/bands/{{one_band.band_id}}">View</a>
-                        {% if session['user_id'] == one_band.users.id %}
-                        <a href="update/{{one_band.band_id}}">Edit</a>
-                        <form action="/bands/delete/{{one_band.band_id}}" method="post">
+                        <a href="/works/{{one_work.work_id}}">View</a>
+                        {% if session['user_id'] == one_work.users.id %}
+                        <a href="update/{{one_work.work_id}}">Edit</a>
+                        <form action="/works/delete/{{one_work.work_id}}" method="post">
                             <button type="submit">Delete</button>
                         </form>
                         {% endif %}

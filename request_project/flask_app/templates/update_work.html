@@ -13,7 +13,7 @@
 
 
 <body class="p-5">
-    <h1>Update Band {{band.users.first_name}} {{band.users.last_name}}</h1>
+    <h1>Update Work {{work.users.name}} {{work.users.username}}</h1>
 
     <a href="/dash">Home</a>
     <a href="/logout">Logout</a>
@@ -22,16 +22,16 @@
         <p class="text-danger">{{message}}</p>
         {% endfor %}
     </div>
-    <form action="/bands/update" method="post"> New bands
-        <input type="hidden" name="band_id" value="{{band.band_id}}">
+    <form action="/works/update" method="post"> New works
+        <input type="hidden" name="work_id" value="{{work.work_id}}">
         <div>
-            Location:<input type="text" name="home_city" value="{{band.home_city}}">
+            Location:<input type="text" name="description" value="{{work.description}}">
         </div>
         <div>
-            Genre: <input type="text" name="genre" value="{{band.genre}}">
+            Language: <input type="text" name="language" value="{{work.language}}">
         </div>
         <div>
-            Name: <input type="text" name="band_name" value="{{band.band_name}}">
+            Name: <input type="text" name="type" value="{{work.type}}">
         </div>
         <div>
             <button>Update Sighting</button>

@@ -44,9 +44,9 @@ def dash():
 # ============LOGIN USER=================
 @app.route("/user/login", methods=["POST"])
 def login():
-    user_db = User.get_user_by_email(request.form["email"])
+    user_db = User.get_user_by_username(request.form["username"])
     if not user_db:
-        flash("Invalid Email", "log")
+        flash("Invalid Username", "log")
         return redirect("/")
     if not bcrypt.check_password_hash(user_db.password, request.form["password"]):
         flash("Invalid Password", "log")

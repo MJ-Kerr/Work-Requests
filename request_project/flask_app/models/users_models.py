@@ -9,8 +9,8 @@ EMAIL_REGEX = re.compile (r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 class User:
     def __init__(self, data):
         self.id = data['id']
-        self.first_name = data['first_name']
-        self.last_name = data['last_name']
+        self.name = data['name']
+        self.username = data['username']
         self.email = data['email']
         self.password = data['password']
         self.created_at = data['created_at']
@@ -21,13 +21,13 @@ class User:
     def create_user(cls, data):
         query = """
             INSERT INTO users
-                ( first_name, 
-                last_name, 
+                ( name, 
+                username, 
                 email, 
                 password)
             VALUES
-                (%(first_name)s, 
-                %(last_name)s, 
+                (%(name)s, 
+                %(username)s, 
                 %(email)s, 
                 %(password)s);
             """
@@ -47,15 +47,15 @@ class User:
         print(results)
         return User(results[0])
 
-# =====================Get User By Email==================
+# =====================Get User By Username==================
     @classmethod
-    def get_user_by_email(cls, email):
+    def get_user_by_username(cls, username):
         data = {
-            "email": email
+            "username": username
         }
         query = """
             SELECT * FROM users 
-            WHERE email = %(email)s;
+            WHERE username = %(username)s;
         """
         results = connectToMySQL(DATABASE).query_db(query, data)
         print(results)
@@ -68,20 +68,20 @@ class User:
     def validate(data):
         is_valid = True
 
-        if len(data['first_name']) == 0:
+        if len(data['name']) == 0:
             is_valid = False
             flash('First Name is required','reg')
-        if len(data['last_name']) == 0:
+        if len(data['username']) == 0:
             is_valid = False
             flash( 'Last Name is required','reg')
         if not EMAIL_REGEX.match(data['email']):
             flash( 'Email is invalid','reg')
             is_valid = False
         else:
-            future_user = User.get_user_by_email(data['email'])
+            future_user = User.get_user_by_username(data['username'])
             if future_user:
                 is_valid = False
-                flash("Email is already in use",'reg')
+                flash("username is already in use",'reg')
         if len(data['password']) < 8:
             is_valid = False
             flash('Password must be at least 8 characters long','reg')
