@@ -11,18 +11,24 @@
     <title>Work 👣 Card</title>
 </head>
 
-<body>
-    <nav class="text-center bg-info">👣 👣 👣Lets  go for a dance 👣 👣 👣
+<body class="bg-secondary">
+    <nav class="text-center bg-info">Todays Project is a {{work.type}}
     </nav>
-    <div class="container">
-        <h1>Work Info</h1>
-        <p>{{work.description}} {{work.language}}</p>
-        <p>Work Name: {{work.type}}</p>
-        <p>Founded by: {{work.users.name}} {{work.users.username}}</p>
-        <a href="/dash">Home</a>
-        <a href="/logout">logout</a>
-    </div>
-    <div class="container">
+    <a href="/logout" class="text-center bg-info text-dark border border-dark border-solid border-3 m-5">Logout</a>
+    <a href="/dash" class="text-center bg-info text-dark border border-dark border-solid border-3 m-5">Home</a>
+    <div class="container d-flex">
+        <div class="container bg-info p-5 m-5 text-center justify-content-center border-solid border border-3">
+            <h1>Work Info</h1>
+            <p>{{work.description}} {{work.language}}</p>
+            <p>Type: {{work.type}}</p>
+            <p>Requested by: {{work.users.name}} ({{work.users.username}})</p>
+            <p>Created: {{work.created_at}}</p>
+            {% if session['user_id'] == 4 %}
+            <form action="/works/delete/{{work.work_id}}" method="post">
+                <button type="submit" class="bg-danger">Finished</button>
+            </form>
+            {% endif %}
+        </div>
     </div>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js'

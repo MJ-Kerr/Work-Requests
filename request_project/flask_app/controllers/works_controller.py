@@ -24,14 +24,14 @@ def create_work():
 # ============= Get one work =============
 @app.route("/works/<int:id>")
 def get_work(id):
-    work = work.get_work(id)
+    work = Work.get_work(id)
     return render_template("work_card.html", work=work)
 
 
 # ============= Update work Render=============
 @app.route("/update/<int:id>")
 def update_work(id):
-    work = work.get_work(id)
+    work = Work.get_work(id)
     return render_template("update_work.html", work=work)
 
 
