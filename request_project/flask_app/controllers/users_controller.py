@@ -36,7 +36,7 @@ def dash():
     logged_in_user = User.get_user(session["user_id"])
 
 
-#  =========================return all the sightings====================
+#  =========================return all the works====================
     all_works = works_models.Work.get_all()
     return render_template("dash.html", logged_in_user=logged_in_user, all_works=all_works)
 
@@ -59,5 +59,8 @@ def login():
 
 @app.route("/logout")
 def logout():
+    print(session)
     session.clear()
-    return redirect("/")
+    response = redirect("/")
+    response.set_cookie("user_id", "", expires=0)
+    return response

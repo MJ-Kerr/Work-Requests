@@ -25,7 +25,7 @@ class Work:
         print(self.updated_at)
         print(self.users)
 
-# ===================Create Sighting=====================
+# ===================Create Work=====================
 
 
     @classmethod
@@ -54,12 +54,11 @@ class Work:
         ON users.id = works.users_id;
         """
         results = connectToMySQL(DATABASE).query_db(query)
-        # print(results)
+        print(results)
         list_of_works = []
         print(results)
         for row in results:
             this_work = cls(row)
-            # create user for sighting
             user_data = {
                 **row,
                 'created_at': row['users.created_at'],
@@ -71,7 +70,7 @@ class Work:
             this_work.print()
         return list_of_works
 
-# ================Get Sighting=====================
+# ================Get Work=====================
 
     @classmethod
     def get_work(cls,id):
@@ -87,7 +86,7 @@ class Work:
         results = connectToMySQL(DATABASE).query_db(query, data)
         if results:
             this_work = cls(results[0])
-            # create user for sighting
+            # create user for work
             user_data = {
                 **results[0],
                 'created_at': results[0]['users.created_at'],
@@ -100,7 +99,7 @@ class Work:
             return False
 
 
-# =================Update Sighting=====================
+# =================Update Work=====================
 
     @classmethod
     def update(cls, data):
@@ -115,7 +114,7 @@ class Work:
         return connectToMySQL(DATABASE).query_db(query, data)
 
 
-# ================Delete Sighting=====================
+# ================Delete Work=====================
 
     @classmethod
     def delete(cls, data):
@@ -125,7 +124,7 @@ class Work:
         """
         return connectToMySQL(DATABASE).query_db(query, data)
 
-# ================Validate Sighting=====================
+# ================Validate Work=====================
     @staticmethod
     def validate(data):
         is_valid =True
